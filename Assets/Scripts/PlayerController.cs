@@ -9,34 +9,42 @@ public class PlayerController : MonoBehaviour {
 	public int count;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		count = 0;
+		inv = ScriptableObject.CreateInstance<Inventory>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		if (Input.GetKeyDown(KeyCode.A)) {
 			if (inv.isEmpty ()) {
-				inv.add (test);
+				inv.add(test);
 			} else {
-				Item temp = ScriptableObject.CreateInstance<Item> ();
-				temp.itemName = count + " ";
-				inv.add (temp);
+				Item temp = ScriptableObject.CreateInstance<Item>();
+				temp.itemName = count + "";
+				inv.add(temp);
 			}
 			count++;
 		}
-		if (Input.GetKeyDown (KeyCode.P)) {
-			inv.printItems ();
+
+		if (Input.GetKeyDown(KeyCode.P)) {
+			inv.printItems();
+		}
+
+		if (Input.GetKeyDown (KeyCode.D)) {
+			string itemName = count - 1 + "";
+			inv.delete("4");
+			count--;
 		}
 	}
 
 	void toggleInventory() {
 		GameObject invCanvas = GameObject.Find ("Canvas");
-		if (invCanvas.GetComponent<Canvas> ().enabled) {
-			invCanvas.GetComponent<Canvas> ().enabled = false;
+		if (invCanvas.GetComponent<Canvas>().enabled) {
+			invCanvas.GetComponent<Canvas>().enabled = false;
 		} else {
-			invCanvas.GetComponent<Canvas> ().enabled = true;
-			inv.displayItems ();
+			invCanvas.GetComponent<Canvas>().enabled = true;
+			inv.displayItems();
 		}
 	}
 }
