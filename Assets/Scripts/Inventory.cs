@@ -36,33 +36,29 @@ public class Inventory : ScriptableObject {
 	}
 
 	// deletes item from inventory
-	public void delete (Item i) {
+	public void delete(string itemToDelete) {
 		Item curr = front;
 
-		if (front == null) {
-			return;
+		if (!itemToDelete.Equals (curr.itemName)) {
+			Debug.Log ("This works");
 		}
-
-		if (front == back && front.itemName == i.itemName) {
-			front = null;
-			back = null;
-		}
-
-		if (front.itemName == i.itemName) {
-			front = front.next;
-			front.prev = null;
-		}
-
-		if (back.itemName == i.itemName) {
-			Item temp = back.prev;
-			temp.next = null;
-		}
-
-		while (curr.itemName != i.itemName) {
+		while (!itemToDelete.Equals(curr.itemName)) {
+			Debug.Log (curr.itemName);
 			curr = curr.next;
 		}
 
-		if (curr != null) {
+		if (front == null) {
+			return;
+		} else if (front == back && front.itemName.Equals(itemToDelete)) {
+			front = null;
+			back = null;
+		} else if (front.itemName.Equals(itemToDelete)) {
+			front = front.next;
+			front.prev = null;
+		} else if (back.itemName.Equals(itemToDelete)) {
+			Item temp = back.prev;
+			temp.next = null;
+		} else if (curr != null) {
 			Item temp = curr.prev;
 			temp.next = curr.next;
 			curr.next.prev = temp;
